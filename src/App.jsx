@@ -1,45 +1,52 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+import { Layout, Typography, Space } from 'antd';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Exchanges, Homepage, News, Cryptocurrencies, CryptoDetails, Navbar } from './components';
+import './App.css';
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+const App = () => (
+  <div className="app">
+    <div className="navbar">
+      <Navbar />
     </div>
-  )
-}
+    <div className="main">
+      <Layout>
+        <div className="routes">
+          <Switch>
+            <Route exact path="/">
+              <Homepage />
+            </Route>
+            <Route exact path="/exchanges">
+              <Exchanges />
+            </Route>
+            <Route exact path="/cryptocurrencies">
+              <Cryptocurrencies />
+            </Route>
+            <Route exact path="/crypto/:coinId">
+              <CryptoDetails />
+            </Route>
+            <Route exact path="/news">
+              <News />
+            </Route>
+          </Switch>
+        </div>
+      </Layout>
+      <div className="footer">
+        <Typography.Title level={5} style={{ color: 'white', textAlign: 'center' }}>Copyright © 2021
+          <Link to="/">
+            Cryptoverse Inc.
+          </Link> <br />
+          All Rights Reserved.
+        </Typography.Title>
+        <Space>
+          <Link to="/">Home</Link>
+          <Link to="/exchanges">Exchanges</Link>
+          <Link to="/news">News</Link>
+        </Space>
+      </div>
+    </div>
+  </div>
+);
 
-export default App
+export default App;
